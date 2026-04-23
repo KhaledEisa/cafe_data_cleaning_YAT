@@ -3,9 +3,9 @@
 This folder contains the **raw cafe sales dataset** used in the cleaning notebook.
 
 ## Dataset
-- Source (raw): `coffee data/dirty_cafe_sales.csv`
-- Notebook: `cafe_clean.ipynb`
-- Report (full): `reports/cafe_cleaning_report.md`
+- Source (raw): `dirty_cafe_sales.csv`
+- Notebook: `../cafe_clean.ipynb`
+- Report (full): `../reports/cafe_cleaning_report.md`
 
 ## Summary (Before vs After)
 
