@@ -1,18 +1,65 @@
-# Data Cleaning for a Cafe Dataset using Python
+# Cafe Sales Data Cleaning — Before vs After
 
-Cafe sales data cleaning notebook + before/after report.
+## Dataset
+- Source (raw): `data/dirty_cafe_sales.csv`
+- Notebook: `cafe_clean.ipynb`
 
-## Contents
-- `cafe_clean.ipynb` — data cleaning workflow
-- `coffee data/dirty_cafe_sales.csv` — raw input dataset
-- `reports/cafe_cleaning_report.md` — report with embedded plots
-- `reports/assets/cafe/` — saved visualization PNGs
+## Summary (Before vs After)
 
-## How to run
-1. Create/activate a Python environment
-2. Install: `pip install pandas numpy matplotlib seaborn`
-3. Open `cafe_clean.ipynb` and run all cells
+| Metric | Before cleaning | After cleaning |
+|---|---:|---:|
+| Rows | 10,000 | 10,000 |
+| Columns | 8 | 9 |
+| Total missing cells | 6,826 | 639 |
+| Duplicate rows | 0 | 0 |
 
-The last cell writes:
-- `reports/assets/cafe/*.png`
-- `reports/cafe_metrics.json`
+### Missing values by column
+
+**Before (raw):**
+- Location: 3,265
+- Payment Method: 2,579
+- Item: 333
+- Price Per Unit: 179
+- Total Spent: 173
+- Transaction Date: 159
+- Quantity: 138
+- Transaction ID: 0
+
+**After (cleaned):**
+- Item: 480
+- Transaction Date: 159
+- All other columns: 0
+
+Notes:
+- Numeric fields are fully cleaned and imputed: `Quantity`, `Price Per Unit`, `Total Spent` now have 0 missing.
+- `Location` and `Payment Method` are fully filled (0 missing).
+- Remaining missingness is limited to `Item` and `Transaction Date`.
+
+## What cleaning was done (high-level)
+
+- Converted numeric columns from messy strings to numeric types and handled parsing failures.
+- Imputed missing numeric values (`Quantity`, `Price Per Unit`, `Total Spent`).
+- Standardized / filled missing `Payment Method` values.
+- Resolved missing/unknown `Location` values by imputing based on the relationship between `Item` and `Location`, then filling any remainder using the overall location distribution.
+- Reduced unknown/missing `Item` values using price-based inference.
+- Added a helper feature column (`price_key`) to support price-based logic.
+
+## Visualizations (Before vs After)
+
+### 1) Missingness comparison
+
+![](data/assets/cafe/missingness_before_after.png)
+
+### 2) Numeric distributions (Quantity / Price Per Unit / Total Spent)
+
+![](data/assets/cafe/numeric_distributions_before_after.png)
+
+### 3) Top categories (Item / Payment Method / Location)
+
+![](data/assets/cafe/top_categories_before_after.png)
+
+## How to regenerate
+
+- Open `cafe_clean.ipynb` and run all cells.
+- Run the final “report export” cell (the one that prints where it saved plots).
+
